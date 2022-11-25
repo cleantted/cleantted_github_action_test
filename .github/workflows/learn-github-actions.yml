@@ -1,0 +1,23 @@
+name: MkDocs
+
+on:
+  push:
+    branch:
+      - master
+    paths:
+      - mkdocs.yml
+      - docs/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the repository
+        uses: avtions/checkout@v3
+      - name: Install MkDocs
+        run: |
+          python3 -m pip install setuptools
+          python3 -m pip install -r requirements.txt
+      - name: Deploy HTML files
+        run: python3 -m mkdocs gh-deploy
